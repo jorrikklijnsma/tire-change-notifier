@@ -1,1 +1,41 @@
-{"name":"tire-change-notifier","private":true,"version":"0.0.0","type":"module","license":"MIT","workspaces":{"packages":["packages/frontend","packages/backend"]},"scripts":{"backend":"npm run --workspace=backend start","backend:start":"npm run --workspace=backend start","frontend":"npm run --workspace=frontend dev","frontend:dev":"npm run --workspace=frontend dev","frontend:build":"npm run --workspace=frontend build","frontend:lint":"npm run --workspace=frontend lint","frontend:preview":"npm run --workspace=frontend preview"},"dependencies":{"axios":"^0.21.1","dotenv":"^10.0.0","express":"^4.17.1","node-telegram-bot-api":"^0.52.0","react":"^18.2.0","react-dom":"^18.2.0"},"devDependencies":{"@types/react":"^18.2.15","@types/react-dom":"^18.2.7","@vitejs/plugin-react":"^4.0.3","eslint":"^8.45.0","eslint-plugin-react":"^7.32.2","eslint-plugin-react-hooks":"^4.6.0","eslint-plugin-react-refresh":"^0.4.3","vite":"^4.4.5","vite-plugin-windicss":"^1.9.1","windicss":"^3.5.6"}}
+{
+	"name": "tire-change-notifier",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"license": "MIT",
+	"workspaces": [
+		"packages/*"
+	],
+	"scripts": {
+		"start:backend": "npm run --workspace backend start",
+		"dev:frontend": "npm run --workspace frontend dev",
+		"lint": "eslint .",
+		"lint:fix": "eslint --fix .",
+		"prettier": "prettier --write .",
+		"lint:prettier": "npm run lint && npm run prettier",
+		"nuke": "rm -rf node_modules build dist"
+	},
+	"dependencies": {
+		"axios": "^0.21.1",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"node-telegram-bot-api": "^0.52.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@types/react": "^18.2.15",
+		"@types/react-dom": "^18.2.7",
+		"@vitejs/plugin-react": "^4.0.3",
+		"eslint": "^8.52.0",
+		"eslint-plugin-prettier": "^5.0.1",
+		"eslint-plugin-react": "^7.32.2",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"eslint-plugin-react-refresh": "^0.4.3",
+		"prettier": "^3.0.3",
+		"vite": "^4.4.5",
+		"vite-plugin-windicss": "^1.9.1",
+		"windicss": "^3.5.6"
+	}
+}
