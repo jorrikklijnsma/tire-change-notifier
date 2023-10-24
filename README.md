@@ -1,8 +1,3 @@
-# React + Vite
+# tire-change-notifier
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+TireChangeNotifier is your solution to never miss the optimal time to change your tires for the winter or summer again. If you're tired of being too early or too late, this tool leverages weather forecasts to notify you precisely when the weather is about to reach the ideal temperature for your tire swap.
