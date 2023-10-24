@@ -1,3 +1,31 @@
+# Visual Studio Code specific files
+.vscode/
+
+# Editor/IDE specific files
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Build output
+/build/
+
+# Package manager files
+pnpm-lock.yaml
+/package-lock.json
+yarn.lock
+
+# Environment files
+.env
+.env.*
+
+# Include .env.example
+!.env.example
+
+# Vite-specific cache files
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
 # Logs
 logs
 *.log
@@ -6,19 +34,3 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
