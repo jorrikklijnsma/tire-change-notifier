@@ -14,7 +14,6 @@ async function fetchWeatherForecast(location) {
 				units: 'metric'
 			}
 		});
-		console.log('Weather data fetched:', response);
 		return response.data;
 	} catch (error) {
 		console.error('Error fetching weather data:', error);

@@ -1,24 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-function WeatherDisplay() {
-  const [forecast, setForecast] = useState([]);
-
-  useEffect(() => {
-    async function fetchWeather() {
-      console.log('Fetching weather...');
-
-      try {
-        const response = await fetch('/api/weather/forecast');
-        const data = await response.json();
-        setForecast(data.list);  // Assuming 'list' is the array of forecast data.
-      } catch (error) {
-        console.error('Failed to fetch weather:', error);
-      }
-    }
-
-    fetchWeather();
-  }, []);
-
+function WeatherDisplay({ forecast }) {
+  console.log('WeatherDisplay forecast:', forecast);
   return (
     <div className="weather-display">
       {forecast.map((item, index) => (
