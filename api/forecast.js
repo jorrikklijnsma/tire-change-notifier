@@ -103,7 +103,7 @@ function shouldChangeTires(weatherData) {
 }
 
 async function getLastBotMessage() {
-	const endpoint = `${API_ENDPOINT}${API_KEY}/getUpdates`;
+	const endpoint = `${TELEGRAM_API_ENDPOINT}${TELEGRAM_API_KEY}/getUpdates`;
 
 	try {
 		const response = await axios.get(endpoint, { params: { offset: -1 } });
