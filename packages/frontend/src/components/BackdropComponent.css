@@ -17,7 +17,7 @@
 	transition: border-radius 1s ease-in-out;
 }
 .backdrop .shape.one {
-	width: 40svw;
+	width: 56svw;
 	background: rgba(153, 255, 204, 0.4);
 	transform: rotate(90deg) translate(45lvh, 5lvw);
 	animation: shape-one 7s ease-in-out infinite alternate;
@@ -25,7 +25,7 @@
 	transition-delay: 0s;
 }
 .backdrop .shape.two {
-	width: 25lvw;
+	width: 35lvw;
 	background: rgba(255, 221, 153, 0.4);
 	transform: rotate(200deg) translate(-35lvh, 12lvw);
 	animation: shape-two 4s ease-in-out infinite alternate;
@@ -33,7 +33,7 @@
 	transition-delay: 0.1s;
 }
 .backdrop .shape.three {
-	width: 32svw;
+	width: 49svw;
 	background: rgba(153, 238, 255, 0.4);
 	transform: rotate(-165deg) translate(24lvh, -32lvw);
 	animation: shape-three 5s ease-in-out infinite alternate;
@@ -41,7 +41,7 @@
 	transition-delay: 0.2s;
 }
 .backdrop .shape.four {
-	width: 29svw;
+	width: 40svw;
 	background: rgba(240, 168, 192, 0.4);
 	transform: rotate(25deg) translate(-16lvh, -19lvw);
 	animation: shape-four 6s ease-in-out infinite alternate;
@@ -49,7 +49,7 @@
 	transition-delay: 0.3s;
 }
 .backdrop .shape.five {
-	width: 37svw;
+	width: 51svw;
 	background: rgba(255, 153, 179, 0.4);
 	transform: rotate(-55deg) translate(30lvh, 26lvw);
 	animation: shape-five 5.5s ease-in-out infinite alternate;
@@ -57,7 +57,7 @@
 	transition-delay: 0.4s;
 }
 .backdrop .shape.six {
-	width: 24svw;
+	width: 34svw;
 	background: rgba(153, 247, 255, 0.4);
 	transform: rotate(120deg) translate(-40lvh, 46lvw);
 	animation: shape-six 9.5s ease-in-out infinite alternate;
@@ -65,7 +65,7 @@
 	transition-delay: 0.5s;
 }
 .backdrop .shape.seven {
-	width: 31svw;
+	width: 43svw;
 	background: rgba(255, 196, 153, 0.4);
 	transform: rotate(-55deg) translate(-24lvh, 56lvw);
 	animation: shape-seven 15.5s ease-in-out infinite alternate;
@@ -78,7 +78,7 @@
 		transform: rotate(90deg) translate(45lvh, 0);
 	}
 	to {
-		transform: rotate(120deg) translate(-20lvh, 0);
+		transform: rotate(120deg) translate(-20lvh, 7lvw);
 	}
 }
 @keyframes shape-two {
@@ -86,7 +86,7 @@
 		transform: rotate(200deg) translate(-35lvh, 12lvw);
 	}
 	to {
-		transform: rotate(240deg) translate(-35lvh, 12lvw);
+		transform: rotate(240deg) translate(-35lvh, 9lvw);
 	}
 }
 @keyframes shape-three {
@@ -94,7 +94,7 @@
 		transform: rotate(-165deg) translate(24lvh, -32lvw);
 	}
 	to {
-		transform: rotate(-100deg) translate(24lvh, -32lvw);
+		transform: rotate(-100deg) translate(24lvh, -38lvw);
 	}
 }
 @keyframes shape-four {
@@ -102,7 +102,7 @@
 		transform: rotate(25deg) translate(-16lvh, -19lvw);
 	}
 	to {
-		transform: rotate(-20deg) translate(-16lvh, -19lvw);
+		transform: rotate(-20deg) translate(-16lvh, -23lvw);
 	}
 }
 @keyframes shape-five {
@@ -110,7 +110,7 @@
 		transform: rotate(-55deg) translate(30lvh, 26lvw);
 	}
 	to {
-		transform: rotate(-70deg) translate(30lvh, 26lvw);
+		transform: rotate(-70deg) translate(30lvh, 21lvw);
 	}
 }
 @keyframes shape-six {
@@ -118,7 +118,7 @@
 		transform: rotate(120deg) translate(-40lvh, 46lvw);
 	}
 	to {
-		transform: rotate(95deg) translate(52lvh, 46lvw);
+		transform: rotate(95deg) translate(52lvh, 50lvw);
 	}
 }
 @keyframes shape-seven {

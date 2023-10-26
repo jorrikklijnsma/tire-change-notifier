@@ -21,7 +21,7 @@ function WeatherDisplay({ forecast }) {
 	return (
 		<div className="weather-display grid gap-4 mt-6">
 			{averages.map((item, index) => (
-				<div key={index} className="weather-item p-4 bg-white bg-opacity-40 rounded-xl backdrop-blur-md text-white flex justify-between items-center  shadow-lg">
+				<div key={index} className="weather-item p-4 bg-white bg-opacity-30 rounded-xl backdrop-blur-md text-white flex justify-between items-center shadow-lg">
 					<div>{item.date}</div>
 					<div>{item.avgTemp}°C</div>
 				</div>
