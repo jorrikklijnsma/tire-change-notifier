@@ -11,7 +11,7 @@ function App() {
 	useEffect(() => {
 		async function fetchWeather() {
 			try {
-				const response = await fetch('/api/weather/forecast');
+				const response = await fetch('/api/forecast');
 				const data = await response.json();
 				setForecast(data.weatherData.list); // Assuming 'list' is the array of forecast data.
 				setNeedToChangeTires(data.needToChangeTires);
