@@ -4,12 +4,12 @@ import { sendTelegramNotification } from '../services/SendTelegramNotificationSe
 const notificationRouter = express.Router();
 
 notificationRouter.get('/sendNotification', async (req, res) => {
-  try {
-    const data = await sendTelegramNotification();
-    res.json(data);
-  } catch (error) {
-    res.status(500).send('Failed to fetch weather data');
-  }
+	try {
+		const data = await sendTelegramNotification();
+		res.json(data);
+	} catch (error) {
+		res.status(500).send('Failed to fetch weather data');
+	}
 });
 
 export default notificationRouter;
