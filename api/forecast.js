@@ -12,9 +12,13 @@ export default async (req, res) => {
 	try {
 		const weatherData = await fetchWeatherForecast();
 		const currentDecision = shouldChangeTires(weatherData);
+		console.log('currentDecision', currentDecision);
 
+		console.log('Fetching last Telegram message');
 		const lastBotMessage = await getLastBotMessage();
 
+		console.log('last bot message', lastBotMessage.message);
+		console.log('bot already sent message today', lastBotMessage.alreadySentToday);
 		if (currentDecision !== lastBotMessage.message || !lastBotMessage.alreadySentToday) {
 			console.log('Sending Telegram notification');
 
