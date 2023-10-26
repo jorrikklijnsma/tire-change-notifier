@@ -7,7 +7,7 @@ const TELEGRAM_API_ENDPOINT = 'https://api.telegram.org/bot';
 const TELEGRAM_API_KEY = process.env.TELEGRAM_BOT_TOKEN;
 const chatId = process.env.TELEGRAM_CHAT_ID;
 
-module.exports = async (res) => {
+export default async (req, res) => {
 	// Assume you're using OpenWeatherMap API for this example
 	try {
 		const weatherData = await fetchWeatherForecast();
