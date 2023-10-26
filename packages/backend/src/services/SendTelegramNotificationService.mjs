@@ -1,13 +1,13 @@
+import '../../bootstrap.mjs';
 import axios from 'axios';
-
-const TELEGRAM_API_ENDPOINT = '<YOUR_TOKEN>';
 
 const API_ENDPOINT = 'https://api.telegram.org/bot';
 const API_KEY = process.env.TELEGRAM_BOT_TOKEN;
+const chatId = process.env.TELEGRAM_CHAT_ID;
 
-async function sendTelegramNotification(chatId, message) {
+async function sendTelegramNotification(message) {
   try {
-    await axios.post(TELEGRAM_API_ENDPOINT + TELEGRAM_TOKEN + '/sendMessage', {
+    await axios.post(`${API_ENDPOINT}${API_KEY}/sendMessage`, {
       chat_id: chatId,
       text: message
     });
