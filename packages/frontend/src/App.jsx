@@ -34,7 +34,9 @@ function App() {
 					<header className="backdrop-blur-md bg-opacity-20 bg-white rounded-xl p-6 shadow-lg">
 						<h1 className="text-2xl text-white text-center">Tire Change Notifier</h1>
 					</header>
-					{!loading && !error && <div className="p-4 bg-white bg-opacity-20 rounded-xl backdrop-blur-md text-white shadow-lg">{needToChangeTires}</div>}
+					{!loading && !error && (
+						<div className="flex flex-col items-center justify-center p-4 bg-white bg-opacity-20 rounded-xl backdrop-blur-md text-white shadow-lg">{needToChangeTires}</div>
+					)}
 				</div>
 
 				{loading && <p>Loading...</p>}
