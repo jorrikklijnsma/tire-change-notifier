@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import WeatherDisplay from './components/WeatherDisplay.jsx';
+import LavaBackdrop from './components/LavaBackdrop.jsx';
 
 function App() {
 	const [forecast, setForecast] = useState([]);
@@ -26,25 +27,25 @@ function App() {
 	}, []);
 
 	return (
-		<div className="app flex flex-col items-center justify-center h-screen bg-gradient-to-br from-blue-400 to-purple-600">
-			<header className="backdrop-blur-md bg-opacity-40 bg-white rounded-xl p-6 shadow-lg">
-				<h1 className="text-2xl text-white">Tire Change Notifier</h1>
-			</header>
+		<div className="bg-black">
+			<LavaBackdrop />
+			<div className="app flex flex-col items-center justify-between h-screen relative p-5">
+				<div className="grid auto-cols-fr grid-cols-2 gap-2">
+					<header className="backdrop-blur-md bg-opacity-20 bg-white rounded-xl p-6 shadow-lg">
+						<h1 className="text-2xl text-white text-center">Tire Change Notifier</h1>
+					</header>
+					{!loading && !error && <div className="p-4 bg-white bg-opacity-20 rounded-xl backdrop-blur-md text-white shadow-lg">{needToChangeTires}</div>}
+				</div>
 
-			{loading && <p>Loading...</p>}
-			{error && <p>Error: {error}</p>}
+				{loading && <p>Loading...</p>}
+				{error && <p>Error: {error}</p>}
 
-			{!loading && !error && (
-				<>
-          <div className="mt-6 p-4 bg-white bg-opacity-40 rounded-xl backdrop-blur-md text-white shadow-lg">
-  {needToChangeTires}
-</div>
-
-					<main>
+				{!loading && !error && (
+					<main className="grow-1">
 						<WeatherDisplay forecast={forecast} />
 					</main>
-				</>
-			)}
+				)}
+			</div>
 		</div>
 	);
 }
