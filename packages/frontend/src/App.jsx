@@ -36,7 +36,7 @@ function App() {
 
 			{!loading && !error && (
 				<>
-          <div className="mt-6 p-4 bg-white bg-opacity-40 rounded-xl backdrop-blur-md text-white">
+          <div className="mt-6 p-4 bg-white bg-opacity-40 rounded-xl backdrop-blur-md text-white shadow-lg">
   {needToChangeTires}
 </div>
 
