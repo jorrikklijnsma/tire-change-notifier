@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const OPENWEATHER_API_ENDPOINT = 'https://api.openweathermap.org/data/2.5/forecast';
-const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY || "df7b319e477183574d36d07a0bd50364";
+const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY;
 
 const TELEGRAM_API_ENDPOINT = 'https://api.telegram.org/bot';
-const TELEGRAM_API_KEY = process.env.TELEGRAM_BOT_TOKEN || "6983558650:AAF5JEPC358K3tqoB9G1VV_HLkjmkakHBYY";
-const chatId = process.env.TELEGRAM_CHAT_ID || '-1001920868343';
+const TELEGRAM_API_KEY = process.env.TELEGRAM_BOT_TOKEN;
+const chatId = process.env.TELEGRAM_CHAT_ID;
 
 export default async (req, res) => {
 	try {
@@ -29,8 +29,10 @@ export default async (req, res) => {
 		if (currentDecision !== lastPinnedMessage?.message || !lastPinnedMessage?.alreadySentToday) {
 			console.log('Sending Telegram notification');
 
+			const noNotification = currentDecision === lastPinnedMessage?.message
+
 			// Send the new message and pin it
-			const messageId = await sendTelegramNotification(currentDecision);
+			const messageId = await sendTelegramNotification(currentDecision, noNotification);
 			if (messageId) {
 				await pinTelegramMessage(messageId);
 			}
@@ -66,11 +68,12 @@ async function fetchWeatherForecast() {
 	}
 }
 
-async function sendTelegramNotification(message) {
+async function sendTelegramNotification(message, noNotification) {
 	try {
 		const response = await axios.post(`${TELEGRAM_API_ENDPOINT}${TELEGRAM_API_KEY}/sendMessage`, {
 			chat_id: chatId,
-			text: message
+			text: message,
+			disable_notification: noNotification,
 		});
 
 		// Return the message_id from the response for further actions (like pinning)
