@@ -13,13 +13,13 @@ weatherRouter.get('/forecast', async (req, res) => {
 
 		const lastBotMessage = await getLastBotMessage();
 
-		if (currentDecision !== lastBotMessage.message || !lastBotMessage.alreadySentToday) {
-			console.log('Sending Telegram notification');
+		// if (currentDecision !== lastBotMessage.message || !lastBotMessage.alreadySentToday) {
+		// console.log('Sending Telegram notification');
 
-			await sendTelegramNotification(currentDecision);
-		} else {
-			console.log('No need to send Telegram notification');
-		}
+		// await sendTelegramNotification(currentDecision);
+		// } else {
+		// console.log('No need to send Telegram notification');
+		// }
 
 		const data = {
 			weatherData,

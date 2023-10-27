@@ -15,15 +15,19 @@ async function getLastBotMessage() {
 		const messages = data
 			.filter((update) => update?.channel_post?.text && update?.channel_post?.chat?.id === parseInt(chatId))
 			.map((update) => {
-				const messageUnix = new Date(update.channel_post.date * 1000);
-				const dateOfToday = new Date();
-				const messageDate = `${messageUnix.getDate()}-${messageUnix.getMonth()}-${messageUnix.getFullYear()}`;
-				const dateOfTodayFormatted = `${dateOfToday.getDate()}-${dateOfToday.getMonth()}-${dateOfToday.getFullYear()}`;
+				const messageUnix = new Date(update.channel_post.date * 1000).toISOString().slice(0, 10);
+				const dateOfToday = new Date().toISOString().slice(0, 10);
 				const message = update.channel_post.text;
-				return { message, alreadySentToday: dateOfTodayFormatted === messageDate };
+
+				console.log('message unix', messageUnix);
+				console.log('message processed date', update.channel_post.date);
+				console.log('server date', dateOfToday);
+
+				return { message: message, alreadySentToday: dateOfToday === messageUnix };
 			});
 
 		const latestMessage = messages[0];
+		console.log('Fetching last Telegram message');
 
 		return latestMessage;
 	} catch (error) {

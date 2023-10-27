@@ -1,28 +1,39 @@
 import axios from 'axios';
 
 const OPENWEATHER_API_ENDPOINT = 'https://api.openweathermap.org/data/2.5/forecast';
-const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY;
+const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY || "df7b319e477183574d36d07a0bd50364";
 
 const TELEGRAM_API_ENDPOINT = 'https://api.telegram.org/bot';
-const TELEGRAM_API_KEY = process.env.TELEGRAM_BOT_TOKEN;
-const chatId = process.env.TELEGRAM_CHAT_ID;
+const TELEGRAM_API_KEY = process.env.TELEGRAM_BOT_TOKEN || "6983558650:AAF5JEPC358K3tqoB9G1VV_HLkjmkakHBYY";
+const chatId = process.env.TELEGRAM_CHAT_ID || '-1001920868343';
 
 export default async (req, res) => {
-	// Assume you're using OpenWeatherMap API for this example
 	try {
 		const weatherData = await fetchWeatherForecast();
 		const currentDecision = shouldChangeTires(weatherData);
 		console.log('currentDecision', currentDecision);
 
-		console.log('Fetching last Telegram message');
-		const lastBotMessage = await getLastBotMessage();
+		console.log('Fetching last pinned Telegram message');
+		const lastPinnedMessage = await getLatestPinnedMessage();
 
-		console.log('last bot message', lastBotMessage.message);
-		console.log('bot already sent message today', lastBotMessage.alreadySentToday);
-		if (currentDecision !== lastBotMessage.message || !lastBotMessage.alreadySentToday) {
+		if (lastPinnedMessage) {
+			console.log('lastBotMessage', lastPinnedMessage.message);
+			console.log('alreadySentToday', lastPinnedMessage.alreadySentToday);
+
+			// Unpin the previous message
+			if (lastPinnedMessage) {
+				await unpinTelegramMessage(lastPinnedMessage);
+			}
+		}
+
+		if (currentDecision !== lastPinnedMessage?.message || !lastPinnedMessage?.alreadySentToday) {
 			console.log('Sending Telegram notification');
 
-			await sendTelegramNotification(currentDecision);
+			// Send the new message and pin it
+			const messageId = await sendTelegramNotification(currentDecision);
+			if (messageId) {
+				await pinTelegramMessage(messageId);
+			}
 		} else {
 			console.log('No need to send Telegram notification');
 		}
@@ -57,12 +68,68 @@ async function fetchWeatherForecast() {
 
 async function sendTelegramNotification(message) {
 	try {
-		await axios.post(`${TELEGRAM_API_ENDPOINT}${TELEGRAM_API_KEY}/sendMessage`, {
+		const response = await axios.post(`${TELEGRAM_API_ENDPOINT}${TELEGRAM_API_KEY}/sendMessage`, {
 			chat_id: chatId,
 			text: message
 		});
+
+		// Return the message_id from the response for further actions (like pinning)
+		return response.data.result.message_id;
 	} catch (error) {
 		console.error('Error sending Telegram notification:', error);
+		return null;
+	}
+}
+
+async function getLatestPinnedMessage() {
+	try {
+		const response = await axios.get(`${TELEGRAM_API_ENDPOINT}${TELEGRAM_API_KEY}/getChat`, {
+			params: {
+				chat_id: chatId
+			}
+		});
+
+		if (response.data.result.pinned_message) {
+			const pinnedMassage = response.data.result.pinned_message
+
+			const messageUnix = new Date(pinnedMassage.date * 1000).toISOString().slice(0, 10);
+			const dateOfToday = new Date().toISOString().slice(0, 10);
+			const messageText = pinnedMassage.text;
+
+			console.log('message unix', messageUnix);
+			console.log('message processed date', pinnedMassage.date);
+			console.log('server date', dateOfToday);
+
+			console.log('Fetching last Telegram message');
+			return { message: messageText, alreadySentToday: dateOfToday === messageUnix };
+		}
+		return null;
+	} catch (error) {
+		console.error('Error fetching chat information:', error);
+		return null;
+	}
+}
+
+async function pinTelegramMessage(messageId) {
+	try {
+		await axios.post(`${TELEGRAM_API_ENDPOINT}${TELEGRAM_API_KEY}/pinChatMessage`, {
+			chat_id: chatId,
+			message_id: messageId,
+			disable_notification: true // To avoid notifying all members about the pin
+		});
+	} catch (error) {
+		console.error('Error pinning Telegram message:', error);
+	}
+}
+
+async function unpinTelegramMessage(messageId) {
+	try {
+		await axios.post(`${TELEGRAM_API_ENDPOINT}${TELEGRAM_API_KEY}/unpinChatMessage`, {
+			chat_id: chatId,
+			message_id: messageId
+		});
+	} catch (error) {
+		console.error('Error unpinning Telegram message:', error);
 	}
 }
 
@@ -103,31 +170,5 @@ function shouldChangeTires(weatherData) {
 		return 'The temperature during midday is consistently rising above 15°C. Consider switching to summer tires.';
 	} else {
 		return 'No need to switch tires yet.';
-	}
-}
-
-async function getLastBotMessage() {
-	const endpoint = `${TELEGRAM_API_ENDPOINT}${TELEGRAM_API_KEY}/getUpdates`;
-
-	try {
-		const response = await axios.get(endpoint, { params: { offset: -1 } });
-		const data = response.data.result;
-
-		const messages = data
-			.filter((update) => update?.channel_post?.text && update?.channel_post?.chat?.id === parseInt(chatId))
-			.map((update) => {
-				const messageUnix = new Date(update.channel_post.date * 1000);
-				const dateOfToday = new Date();
-				const messageDate = `${messageUnix.getDate()}-${messageUnix.getMonth()}-${messageUnix.getFullYear()}`;
-				const dateOfTodayFormatted = `${dateOfToday.getDate()}-${dateOfToday.getMonth()}-${dateOfToday.getFullYear()}`;
-				const message = update.channel_post.text;
-				return { message, alreadySentToday: dateOfTodayFormatted === messageDate };
-			});
-
-		const latestMessage = messages[0];
-
-		return latestMessage;
-	} catch (error) {
-		console.error('Error fetching weather data:', error);
 	}
 }
